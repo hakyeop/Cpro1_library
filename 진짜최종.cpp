@@ -55,7 +55,7 @@ void my_gets(char* sp, int size);
 
 //-----------------------------------------------------------------
 // 도서 관련 함수
-void registerordelete(book* books, int* book_count);
+void registerordelete(book* books, int* book_count, int login_num);
 void register_book(book* books, int* book_count);
 void delete_book(book* books, int* book_count);
 void checkout_book(book* books, int book_count, int login_num);
@@ -128,7 +128,7 @@ int main(void)
 
 		case 3:
 
-			registerordelete(books, &book_count);
+			registerordelete(books, &book_count, login_num);
 
 			break;
 
@@ -529,8 +529,15 @@ void my_strcpy(char* dp, char* sp)
 	while ((*dp++ = *sp++) != '\0');
 }
 
-void registerordelete(book* books, int* book_count)
+void registerordelete(book* books, int* book_count, int login_num)
 {
+
+	if (login_num != 1) //관리자가 아니라면 반환
+	{
+		printf("@ 관리자만 사용하실 수 있습니다!\n");
+		return;
+	}
+
 	int num;
 
 	printf("도서 등록 시 0, 도서 삭제 시 1 입력 : ");
